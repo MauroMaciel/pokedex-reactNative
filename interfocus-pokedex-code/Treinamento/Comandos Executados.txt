@@ -5,3 +5,6 @@ cd <nome-projeto>
 expo-start --para rodar
 
  npm install -D typescript @types/jest @types/react @types/react-native @types/react-test-renderer @types/react
+
+ npm install styled-components
+ npm install -D @types/styled-components-react-native
