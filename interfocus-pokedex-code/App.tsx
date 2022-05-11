@@ -1,9 +1,13 @@
 import React from 'react';
+
 import { StyleSheet, View } from 'react-native';
+
 import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme'
+
 import {useFonts} from "expo-font";
 import { Poppins_700Bold,Poppins_400Regular } from '@expo-google-fonts/poppins';
+
 import Home from './src/screens/Home';
 
 export default function App() {
