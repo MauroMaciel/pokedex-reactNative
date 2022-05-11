@@ -8,3 +8,6 @@ expo-start --para rodar
 
  npm install styled-components
  npm install -D @types/styled-components-react-native
+
+
+ expo install expo-font @expo-google-fonts/poppins
