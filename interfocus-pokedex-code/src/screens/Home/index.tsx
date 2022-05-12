@@ -9,13 +9,10 @@ import api from "../../services/api";
 
 function Home(){
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
-
-    function alteraTipoFiltro(){
-        setDecrescente(estadoAnterior => !estadoAnterior);
-    }
-
+    
     async function getPokemons() {
-        const resposta = await api.get('/pokemons');
+        const filtro = decrescente ? '?_sort=name&_order=desc' : '?_sort=name&_order=asc';
+        const resposta = await api.get(`/pokemons${filtro}`);
 
         if(resposta.data){
             console.log(resposta.data);
@@ -24,7 +21,7 @@ function Home(){
 
     useEffect(() => {
         getPokemons();
-    }, []);
+    }, [decrescente]);
 
     return (
         <Container>
