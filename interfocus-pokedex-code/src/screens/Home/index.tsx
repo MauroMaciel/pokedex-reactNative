@@ -11,23 +11,31 @@ import { PokemonDTO } from "../../dtos/PokemonDTO";
 function Home(){
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
     const [nomeFiltro, setNomeFiltro] = useState('');
-    const [pokemons, setPokemons] = useState([]);
+    const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
+    const [pokemonsFiltro, setPokemonsFiltro] = useState<PokemonDTO[]>([]);
 
     function alteraTipoFiltro(){
         setDecrescente(estadoAnterior => !estadoAnterior);
     }
 
     function alteraNomeFiltro(nome: string){
-        console.log(nome);
         setNomeFiltro(nome);
+        const filtrados = pokemons.filter(p => p.name.toLowerCase().includes(nome.toLowerCase()));
+        setPokemonsFiltro(filtrados);
+        console.log(filtrados);
     }
 
     async function getPokemons() {
-        const filtro = decrescente ? '?_sort=name&_order=desc' : '?_sort=name&_order=asc';
-        const resposta = await api.get<PokemonDTO[]>(`/pokemons${filtro}`);
+        try {
+            const filtro = decrescente ? '?_sort=name&_order=desc' : '?_sort=name&_order=asc';
+            const resposta = await api.get<PokemonDTO[]>(`/pokemons${filtro}`);
 
-        if(resposta.data){
-            console.log(resposta.data);
+            if(resposta.data && resposta.data.length > 0){
+                setPokemons(resposta.data);
+                setPokemonsFiltro(resposta.data);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
