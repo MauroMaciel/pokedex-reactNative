@@ -9,7 +9,17 @@ import api from "../../services/api";
 
 function Home(){
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
-    
+    const [nomeFiltro, setNomeFiltro] = useState('');
+
+    function alteraTipoFiltro(){
+        setDecrescente(estadoAnterior => !estadoAnterior);
+    }
+
+    function alteraNomeFiltro(nome: string){
+        console.log(nome);
+        setNomeFiltro(nome);
+    }
+
     async function getPokemons() {
         const filtro = decrescente ? '?_sort=name&_order=desc' : '?_sort=name&_order=asc';
         const resposta = await api.get(`/pokemons${filtro}`);
@@ -39,7 +49,8 @@ function Home(){
                 </BotaoOrdenacao>
             </Header>
             <InputTexto
-                placeholder="Procurar"                
+                placeholder="Procurar"             
+                onChangeText={(texto) => alteraNomeFiltro(texto)}
             />
 
             <SmallCard></SmallCard>
