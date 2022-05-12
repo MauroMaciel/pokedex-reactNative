@@ -11,6 +11,8 @@ export const Container = styled.View<Props>`
     border-radius: 8px;
     border-width: 1px;
     border-color: ${({theme, type}) => theme[type]};
+
+    margin: 8px 5px 8px 0px;
 `;
 
 export const ConteudoCodigo = styled.View`
