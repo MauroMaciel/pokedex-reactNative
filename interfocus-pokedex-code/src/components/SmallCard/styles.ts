@@ -4,13 +4,14 @@ interface Props{
     type: string;
 }
 
-export const Container = styled.View<Props>`
+export const Container = styled.TouchableOpacity<Props>`
     width: 104px;
     height: 112px;
 
     border-radius: 8px;
     border-width: 1px;
     border-color: ${({theme, type}) => theme[type]};
+    background-color: ${({theme, type}) => theme.white};
 
     margin: 8px 5px 8px 0px;
 `;

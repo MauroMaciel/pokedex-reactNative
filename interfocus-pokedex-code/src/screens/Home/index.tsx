@@ -7,7 +7,7 @@ import SortDesc from '../../assets/icons/sortdesc.svg';
 import SmallCard from "../../components/SmallCard";
 import api from "../../services/api";
 import { PokemonDTO } from "../../dtos/PokemonDTO";
-import { FlatList } from "react-native";
+import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
 
 function Home() {
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
@@ -45,43 +45,46 @@ function Home() {
     }, [decrescente]);
 
     return (
-        <Container>
-            <Header>
-                <ConteudoTitulo>
-                    <Pokebola width={24} height={24} />
-                    <Titulo>Pokemon</Titulo>
-                </ConteudoTitulo>
-                <BotaoOrdenacao
-                    onPress={() => alteraTipoFiltro()}>
-                    {
-                        decrescente ? <SortAsc /> : <SortDesc />
-                    }
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
+            <Container>
+                <Header>
+                    <ConteudoTitulo>
+                        <Pokebola width={24} height={24} />
+                        <Titulo>Pokemon</Titulo>
+                    </ConteudoTitulo>
+                    <BotaoOrdenacao
+                        onPress={() => alteraTipoFiltro()}>
+                        {
+                            decrescente ? <SortAsc /> : <SortDesc />
+                        }
 
-                </BotaoOrdenacao>
-            </Header>
-            <InputTexto
-                placeholder="Procurar"
-                onChangeText={(texto) => alteraNomeFiltro(texto)}
-            />
+                    </BotaoOrdenacao>
+                </Header>
+                <InputTexto
+                    placeholder="Procurar"
+                    onChangeText={(texto) => alteraNomeFiltro(texto)}
+                />
 
-            <FlatList
-                data={pokemonsFiltro}
-                keyExtractor={(item) => item.code.toString()}
-                numColumns={3}
-                contentContainerStyle={
-                    {
-                        alignItems: "center",
-                        justifyContent: "center"
+                <FlatList
+                    data={pokemonsFiltro}
+                    keyExtractor={(item) => item.code.toString()}
+                    numColumns={3}
+                    contentContainerStyle={
+                        {
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }
                     }
-                }
-                style={
-                    {
-                        width: '100%'
+                    style={
+                        {
+                            width: '100%'
+                        }
                     }
-                }
-                renderItem={({ item }) => (<SmallCard pokemon={item}></SmallCard>)}
-            />
-        </Container>
+                    renderItem={({ item }) => (<SmallCard pokemon={item}></SmallCard>)}
+                />
+            </Container>
+        </TouchableWithoutFeedback>
+
     );
 }
 
