@@ -11,3 +11,5 @@ expo-start --para rodar
 
 
  expo install expo-font @expo-google-fonts/poppins
+
+ npm install -g json-server
