@@ -62,8 +62,8 @@ function Home(){
                 placeholder="Procurar"             
                 onChangeText={(texto) => alteraNomeFiltro(texto)}
             />
-
-            <SmallCard></SmallCard>
+            {pokemonsFiltro.map(p => (<SmallCard pokemon={p}/>))}
+            
         </Container>
     );
 }
