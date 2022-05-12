@@ -6,10 +6,12 @@ import SortAsc from '../../assets/icons/sortasc.svg';
 import SortDesc from '../../assets/icons/sortdesc.svg';
 import SmallCard from "../../components/SmallCard";
 import api from "../../services/api";
+import { PokemonDTO } from "../../dtos/PokemonDTO";
 
 function Home(){
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
     const [nomeFiltro, setNomeFiltro] = useState('');
+    const [pokemons, setPokemons] = useState([]);
 
     function alteraTipoFiltro(){
         setDecrescente(estadoAnterior => !estadoAnterior);
@@ -22,7 +24,7 @@ function Home(){
 
     async function getPokemons() {
         const filtro = decrescente ? '?_sort=name&_order=desc' : '?_sort=name&_order=asc';
-        const resposta = await api.get(`/pokemons${filtro}`);
+        const resposta = await api.get<PokemonDTO[]>(`/pokemons${filtro}`);
 
         if(resposta.data){
             console.log(resposta.data);
