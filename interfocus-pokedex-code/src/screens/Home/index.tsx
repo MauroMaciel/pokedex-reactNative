@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BotaoOrdenacao, Container, ConteudoTitulo, Header, InputTexto, Titulo } from "./styles";
 
 import Pokebola from '../../assets/icons/pokeball.svg';
 import SortAsc from '../../assets/icons/sortasc.svg';
 import SortDesc from '../../assets/icons/sortdesc.svg';
 import SmallCard from "../../components/SmallCard";
+import api from "../../services/api";
 
 function Home(){
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
@@ -12,6 +13,18 @@ function Home(){
     function alteraTipoFiltro(){
         setDecrescente(estadoAnterior => !estadoAnterior);
     }
+
+    async function getPokemons() {
+        const resposta = await api.get('/pokemons');
+
+        if(resposta.data){
+            console.log(resposta.data);
+        }
+    }
+
+    useEffect(() => {
+        getPokemons();
+    }, []);
 
     return (
         <Container>
