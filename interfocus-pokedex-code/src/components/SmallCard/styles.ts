@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
+import { PokemonName } from "../../dtos/PokemonDTO";
 
 interface Props{
-    type: string;
+    type: PokemonName;
 }
 
 export const Container = styled.TouchableOpacity<Props>`
@@ -11,7 +12,7 @@ export const Container = styled.TouchableOpacity<Props>`
     border-radius: 8px;
     border-width: 1px;
     border-color: ${({theme, type}) => theme[type]};
-    background-color: ${({theme, type}) => theme.white};
+    background-color: ${({theme}) => theme.white};
 
     margin: 8px 5px 8px 0px;
 `;
