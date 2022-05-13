@@ -8,12 +8,21 @@ import SmallCard from "../../components/SmallCard";
 import api from "../../services/api";
 import { PokemonDTO } from "../../dtos/PokemonDTO";
 import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function Home() {
     const [decrescente, setDecrescente] = useState<boolean>(false); //variavel e a funcao q vai alterar ele
     const [nomeFiltro, setNomeFiltro] = useState('');
     const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
     const [pokemonsFiltro, setPokemonsFiltro] = useState<PokemonDTO[]>([]);
+
+    const navigation = useNavigation();
+
+    function navegarParaDetalhes(pokemon: PokemonDTO){
+        navigation.navigate('Detalhes' as never, {
+            pokemon
+        } as never);
+    }
 
     function alteraTipoFiltro() {
         setDecrescente(estadoAnterior => !estadoAnterior);
@@ -23,7 +32,6 @@ function Home() {
         setNomeFiltro(nome);
         const filtrados = pokemons.filter(p => p.name.toLowerCase().includes(nome.toLowerCase()));
         setPokemonsFiltro(filtrados);
-        console.log(filtrados);
     }
 
     async function getPokemons() {
@@ -63,6 +71,7 @@ function Home() {
                 <InputTexto
                     placeholder="Procurar"
                     onChangeText={(texto) => alteraNomeFiltro(texto)}
+                    value={nomeFiltro}
                 />
 
                 <FlatList
@@ -80,7 +89,8 @@ function Home() {
                             width: '100%'
                         }
                     }
-                    renderItem={({ item }) => (<SmallCard pokemon={item}></SmallCard>)}
+                    renderItem={({ item }) => (<SmallCard pokemon={item}
+                    onPress={()=> navegarParaDetalhes(item)}></SmallCard>)}
                 />
             </Container>
         </TouchableWithoutFeedback>

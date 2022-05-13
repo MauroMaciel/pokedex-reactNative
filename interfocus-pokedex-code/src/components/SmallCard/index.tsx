@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Codigo, Container, ConteudoCodigo, ConteudoNome, ConteudoSvg, Nome } from "./styles";
 
-import Bulbasaur from '../../assets/pokemons/Bulbasaur.svg';
 import { PokemonDTO } from "../../dtos/PokemonDTO";
 import retornaSvg from "../../utils/retornaSvg";
+import { TouchableOpacityProps } from "react-native";
 
-interface SmallCardProps {
+interface SmallCardProps extends TouchableOpacityProps {
     pokemon: PokemonDTO
 }
 
-function SmallCard({ pokemon }: SmallCardProps) {
-    console.log(pokemon);
+function SmallCard({ pokemon, ...rest }: SmallCardProps) {
     return (
-        <Container type={pokemon.types[0].name}>
+        <Container type={pokemon.types[0].name} {...rest}>
             <ConteudoCodigo>
                 <Codigo type={pokemon.types[0].name}>{pokemon.code}</Codigo>
             </ConteudoCodigo>
